@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026년 11월 미국 증시 & 주요 IT 실적발표 캘린더 (KST)</title>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <!-- Google Fonts: Noto Sans KR & Inter with Fallbacks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans KR', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['Inter', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #020617;
+            color: #f1f5f9;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-num {
+            font-family: 'Inter', ui-monospace, sans-serif;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        /* Hide scrollbar for horizontal filter nav on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Print Rules */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 8mm;
+            }
+            body {
+                background-color: #ffffff !important;
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-border {
+                border: 1px solid #cbd5e1 !important;
+            }
+            .print-bg {
+                background-color: #f8fafc !important;
+                color: #0f172a !important;
+            }
+            .desktop-grid-container {
+                display: grid !important;
+            }
+            .mobile-list-container {
+                display: none !important;
+            }
+            .card-item {
+                break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #94a3b8 !important;
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+            }
+            .card-item * {
+                color: #0f172a !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-slate-700 selection:text-white">
+
+    <!-- Header Section -->
+    <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md sticky top-0 z-30 shadow-md">
+        <div class="max-w-[1700px] mx-auto px-3 sm:px-5 py-3.5">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                
+                <!-- Title & Subtitle -->
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="px-2 py-0.5 text-[11px] font-bold font-num bg-slate-800 text-slate-300 border border-slate-700 rounded">
+                            2026.11
+                        </span>
+                        <span class="px-2 py-0.5 text-[11px] font-semibold bg-blue-950/80 text-blue-300 border border-blue-800/50 rounded">
+                            미국 EST 적용 (KST = ET + 14시간)
+                        </span>
+                    </div>
+                    <h1 class="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+                        <span>🇺🇸 2026년 11월 미국 증시 & 주요 IT 실적발표 캘린더</span>
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                        모든 시각은 한국시간(KST) 기준 · 토·일 제외 주 5일 배치
+                    </p>
+                </div>
+
+                <!-- Category Filters (Accessible Controls) -->
+                <nav aria-label="이벤트 카테고리 필터" class="no-print">
+                    <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 text-xs font-semibold">
+                        <button id="filter-btn-all" onclick="setFilter('all')" aria-pressed="true"
+                            class="filter-btn px-3 py-2 rounded-lg bg-slate-100 text-slate-950 border border-white font-bold transition focus:outline-none focus:ring-2 focus:ring-slate-400 whitespace-nowrap min-h-[44px] md:min-h-[36px]">
+                            전체 보기
+                        </button>
+                        <button id="filter-btn-econ" onclick="setFilter('econ')" aria-pressed="false"
+                            class="filter-btn px-3 py-2 rounded-lg bg-slate-900 text-sky-400 border border-slate-800 hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap min-h-[44px] md:min-h-[36px]">
+                            <span class="inline-block w-2 h-2 rounded-full bg-sky-400" aria-hidden="true"></span>
+                            <span>경제지표</span>
+                        </button>
+                        <button id="filter-btn-tech" onclick="setFilter('tech')" aria-pressed="false"
+                            class="filter-btn px-3 py-2 rounded-lg bg-slate-900 text-emerald-400 border border-slate-800 hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap min-h-[44px] md:min-h-[36px]">
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400" aria-hidden="true"></span>
+                            <span>IT 실적발표</span>
+                        </button>
+                        <button id="filter-btn-fed_market" onclick="setFilter('fed_market')" aria-pressed="false"
+                            class="filter-btn px-3 py-2 rounded-lg bg-slate-900 text-violet-300 border border-slate-800 hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap min-h-[44px] md:min-h-[36px]">
+                            <span class="inline-block w-2 h-2 rounded-full bg-violet-400" aria-hidden="true"></span>
+                            <span>FOMC / 휴장일</span>
+                        </button>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-[1700px] w-full mx-auto p-2 sm:p-4 md:p-5 flex-grow">
+        
+        <!-- DESKTOP GRID VIEW (768px 이상) -->
+        <div class="hidden md:block desktop-grid-container bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+            <!-- Table Header (Mon-Fri) -->
+            <div class="grid grid-cols-5 bg-slate-950 border-b border-slate-800 text-center font-bold text-slate-300 text-xs sm:text-sm">
+                <div class="py-2.5 border-r border-slate-800">월 (MON)</div>
+                <div class="py-2.5 border-r border-slate-800">화 (TUE)</div>
+                <div class="py-2.5 border-r border-slate-800">수 (WED)</div>
+                <div class="py-2.5 border-r border-slate-800">목 (THU)</div>
+                <div class="py-2.5">금 (FRI)</div>
+            </div>
+
+            <!-- Desktop Calendar Grid -->
+            <div id="desktop-grid" class="grid grid-cols-5 bg-slate-950 divide-x divide-y divide-slate-800/80">
+                <!-- JS dynamic injection for desktop rows -->
+            </div>
+        </div>
+
+        <!-- MOBILE AGENDA LIST VIEW (768px 미만) -->
+        <div class="block md:hidden mobile-list-container space-y-3">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 text-xs text-slate-400 flex items-center justify-between">
+                <span>📱 2026년 11월 KST 주요 일정 목록</span>
+                <span class="font-num text-slate-300">총 <strong id="mobile-event-count" class="text-white">0</strong>건</span>
+            </div>
+            <div id="mobile-list" class="space-y-3">
+                <!-- JS dynamic injection for mobile agenda -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-4 px-4 text-slate-500 text-xs">
+        <div class="max-w-[1700px] mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
+            <div>
+                데이터 기준일: <span class="font-num font-semibold text-slate-400">2026-11-19</span> | KST = ET + 14시간 (미국 서머타임 해제 표준시 기준)
+            </div>
+            <div class="text-center md:text-right text-[11px] text-slate-600">
+                본 캘린더는 참고용 정보이며 투자 권유가 아닙니다. 일정은 변경될 수 있으니 공식 발표(BLS·BEA·연준·각 기업 IR)를 확인하세요.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ACCESSIBLE MODAL -->
+    <div id="event-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md"
+         role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        
+        <!-- Modal Card -->
+        <div id="modal-card" class="bg-slate-900 border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden relative text-slate-100 flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-150">
+            
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-5 border-b border-slate-800 bg-slate-950/60 relative">
+                <button id="modal-close-btn" onclick="closeModal()" 
+                    class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 p-2 rounded-lg transition text-sm focus:outline-none focus:ring-2 focus:ring-slate-400 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    aria-label="닫기">
+                    ✕
+                </button>
+                <div class="flex items-center gap-2 mb-2 pr-8">
+                    <span id="modal-badge-category" class="px-2.5 py-0.5 rounded text-xs font-bold"></span>
+                    <span id="modal-status" class="px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800 text-slate-300 border border-slate-700"></span>
+                </div>
+                <h2 id="modal-title" class="text-base sm:text-xl font-extrabold text-white leading-snug"></h2>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-4 sm:p-5 overflow-y-auto space-y-4 text-xs sm:text-sm leading-relaxed">
+                
+                <!-- Time Box -->
+                <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3 font-num flex flex-col sm:flex-row justify-between gap-2 text-xs">
+                    <div>
+                        <span class="text-slate-400 block text-[11px]">미국 현지 시각 (ET)</span>
+                        <span id="modal-us-time" class="font-semibold text-slate-200"></span>
+                    </div>
+                    <div class="sm:text-right border-t sm:border-t-0 border-slate-800 pt-1 sm:pt-0">
+                        <span class="text-slate-400 block text-[11px]">한국 환산 시각 (KST)</span>
+                        <span id="modal-kst-time" class="font-bold text-amber-400"></span>
+                    </div>
+                </div>
+
+                <!-- Key Note if exists -->
+                <div id="modal-note-container" class="hidden bg-amber-950/30 border border-amber-800/40 rounded-xl p-3 text-amber-200 text-xs">
+                    <strong class="font-semibold block mb-0.5">📌 참고 사항:</strong>
+                    <span id="modal-note-text"></span>
+                </div>
+
+                <!-- Point of View (Key Takeaway) -->
+                <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-3.5 space-y-1">
+                    <h3 class="font-bold text-white text-xs flex items-center gap-1.5">
+                        <span>🔍</span> 관전 포인트
+                    </h3>
+                    <p id="modal-desc" class="text-slate-300 text-xs sm:text-sm leading-relaxed"></p>
+                </div>
+
+                <!-- Impact Score -->
+                <div class="flex items-center justify-between bg-slate-950/40 p-3 rounded-xl border border-slate-800 text-xs">
+                    <span class="text-slate-400 font-medium">시장 영향도 (Importance)</span>
+                    <div id="modal-impact-stars" class="text-amber-400 font-bold font-num tracking-wider"></div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="p-3 bg-slate-950/90 rounded-xl border border-slate-800/80 text-[11px] text-slate-400 leading-normal">
+                    ⚠️ 본 캘린더는 참고용 정보이며 투자 권유가 아닙니다. 일정은 변경될 수 있으니 공식 발표(BLS·BEA·연준·각 기업 IR)를 확인하세요.
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-3 bg-slate-950 border-t border-slate-800 text-right">
+                <button onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg text-xs transition focus:outline-none focus:ring-2 focus:ring-slate-400 min-h-[44px]">
+                    확인 및 닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // RAW DATA ASSIGNMENT (EXACT DATA CONSTANTS)
+        const EVENTS = [
+            {"id":"e01","us_date":"2026-11-02","et_time":"10:00","kst_date":"2026-11-03","kst_time":"00:00","category":"econ","importance":3,"badge":null,"title":"ISM 제조업 PMI (10월)","status":"scheduled"},
+            {"id":"e02","us_date":"2026-11-02","et_time":"장마감 후","kst_date":"2026-11-03","kst_time":"06:00","category":"tech","importance":4,"badge":null,"title":"Apple·Palantir 실적발표","note":"애플 컨퍼런스콜 KST 07:00","status":"scheduled"},
+            {"id":"e03","us_date":"2026-11-03","et_time":"종일","kst_date":"2026-11-03","kst_time":"23:30 개장","category":"market","importance":2,"badge":null,"title":"미국 중간선거일 (증시 정상 개장)","status":"confirmed"},
+            {"id":"e04","us_date":"2026-11-03","et_time":"10:00","kst_date":"2026-11-04","kst_time":"00:00","category":"econ","importance":3,"badge":null,"title":"JOLTS 구인건수 (9월)","status":"scheduled"},
+            {"id":"e05","us_date":"2026-11-03","et_time":"장마감 후","kst_date":"2026-11-04","kst_time":"06:00","category":"tech","importance":3,"badge":null,"title":"AMD·Arista·Super Micro 실적발표","note":"AMD 컨퍼런스콜 KST 07:00","status":"scheduled"},
+            {"id":"e06","us_date":"2026-11-04","et_time":"08:30","kst_date":"2026-11-04","kst_time":"22:30","category":"econ","importance":2,"badge":null,"title":"재무부 분기 리펀딩 발표","status":"scheduled"},
+            {"id":"e07","us_date":"2026-11-04","et_time":"10:00","kst_date":"2026-11-05","kst_time":"00:00","category":"econ","importance":3,"badge":null,"title":"ISM 서비스업 PMI (10월)","status":"scheduled"},
+            {"id":"e08","us_date":"2026-11-04","et_time":"장마감 후","kst_date":"2026-11-05","kst_time":"06:00","category":"tech","importance":3,"badge":null,"title":"Qualcomm·Arm 실적발표","status":"scheduled"},
+            {"id":"e09","us_date":"2026-11-05","et_time":"08:30","kst_date":"2026-11-05","kst_time":"22:30","category":"econ","importance":2,"badge":null,"title":"주간 신규 실업수당 청구","status":"scheduled"},
+            {"id":"e10","us_date":"2026-11-06","et_time":"08:30","kst_date":"2026-11-06","kst_time":"22:30","category":"econ","importance":5,"badge":"고용","title":"10월 고용보고서 (비농업 고용·실업률)","status":"confirmed"},
+            {"id":"e11","us_date":"2026-11-06","et_time":"10:00","kst_date":"2026-11-06","kst_time":"(토) 00:00","category":"econ","importance":2,"badge":null,"title":"미시간대 소비심리 예비치 (11월)","status":"scheduled"},
+            {"id":"e12","us_date":"2026-11-10","et_time":"08:30","kst_date":"2026-11-10","kst_time":"22:30","category":"econ","importance":5,"badge":"CPI","title":"10월 CPI (소비자물가)","note":"일부 지수는 전년비 미공표, 전월비 중심","status":"confirmed"},
+            {"id":"e13","us_date":"2026-11-10","et_time":"17:00(콜)","kst_date":"2026-11-11","kst_time":"07:00","category":"tech","importance":3,"badge":null,"title":"CoreWeave 3분기 실적 콜","status":"scheduled"},
+            {"id":"e14","us_date":"2026-11-11","et_time":"종일","kst_date":"2026-11-11","kst_time":"종일","category":"market","importance":1,"badge":null,"title":"재향군인의 날 (주식시장 정상, 채권시장 휴장)","status":"confirmed"},
+            {"id":"e15","us_date":"2026-11-12","et_time":"08:30","kst_date":"2026-11-12","kst_time":"22:30","category":"econ","importance":2,"badge":null,"title":"주간 신규 실업수당 청구","status":"scheduled"},
+            {"id":"e16","us_date":"2026-11-12","et_time":"장마감 후(콜 16:30)","kst_date":"2026-11-13","kst_time":"06:30","category":"tech","importance":3,"badge":null,"title":"Cisco·Applied Materials 실적발표","status":"scheduled"},
+            {"id":"e17","us_date":"2026-11-13","et_time":"08:30","kst_date":"2026-11-13","kst_time":"22:30","category":"econ","importance":3,"badge":null,"title":"10월 PPI (생산자물가)","status":"confirmed"},
+            {"id":"e18","us_date":"2026-11-17","et_time":"08:30","kst_date":"2026-11-17","kst_time":"22:30","category":"econ","importance":4,"badge":null,"title":"10월 소매판매","status":"scheduled"},
+            {"id":"e19","us_date":"2026-11-17","et_time":"09:15","kst_date":"2026-11-17","kst_time":"23:15","category":"econ","importance":2,"badge":null,"title":"10월 산업생산","status":"scheduled"},
+            {"id":"e20","us_date":"2026-11-17","et_time":"장마감 후 16:20","kst_date":"2026-11-18","kst_time":"06:20","category":"tech","importance":5,"badge":"NVIDIA","title":"NVIDIA 3분기(FY27) 실적발표","note":"컨퍼런스콜 KST 07:00","status":"confirmed"},
+            {"id":"e21","us_date":"2026-11-18","et_time":"14:00","kst_date":"2026-11-19","kst_time":"04:00","category":"fed","importance":4,"badge":"FOMC","title":"FOMC 의사록 (10월 회의)","status":"confirmed"},
+            {"id":"e22","us_date":"2026-11-18","et_time":"장마감 후(콜 16:30)","kst_date":"2026-11-19","kst_time":"06:30","category":"tech","importance":3,"badge":null,"title":"Palo Alto Networks 실적발표","note":"소스별 일정이 상이함(11/12·11/17·11/18). 회사 IR 확인 필요","status":"tentative"},
+            {"id":"e23","us_date":"2026-11-19","et_time":"08:30","kst_date":"2026-11-19","kst_time":"22:30","category":"econ","importance":2,"badge":null,"title":"주간 신규 실업수당 청구","status":"scheduled"},
+            {"id":"e24","us_date":"2026-11-20","et_time":"09:30","kst_date":"2026-11-20","kst_time":"23:30","category":"market","importance":2,"badge":null,"title":"11월 월간 옵션 만기","status":"scheduled"},
+            {"id":"e25","us_date":"2026-11-24","et_time":"장마감 후","kst_date":"2026-11-25","kst_time":"06:00","category":"tech","importance":3,"badge":null,"title":"Dell Technologies 실적발표","note":"추정 일정, 미확정","status":"tentative"},
+            {"id":"e26","us_date":"2026-11-25","et_time":"08:30","kst_date":"2026-11-25","kst_time":"22:30","category":"econ","importance":5,"badge":"PCE","title":"10월 PCE·개인소비지출","status":"scheduled"},
+            {"id":"e27","us_date":"2026-11-25","et_time":"08:30","kst_date":"2026-11-25","kst_time":"22:30","category":"econ","importance":3,"badge":null,"title":"3분기 GDP 2차 추정","status":"scheduled"},
+            {"id":"e28","us_date":"2026-11-25","et_time":"08:30","kst_date":"2026-11-25","kst_time":"22:30","category":"econ","importance":2,"badge":null,"title":"주간 신규 실업수당 청구 (휴일로 수요일 발표)","status":"scheduled"},
+            {"id":"e29","us_date":"2026-11-25","et_time":"14:00","kst_date":"2026-11-26","kst_time":"04:00","category":"fed","importance":3,"badge":null,"title":"연준 베이지북","status":"scheduled"},
+            {"id":"e30","us_date":"2026-11-26","et_time":"종일","kst_date":"2026-11-26","kst_time":"23:30 휴장","category":"market","importance":3,"badge":null,"title":"추수감사절 - 뉴욕증시 휴장","note":"KST 11/26 23:30 ~ 11/27 06:00 정규장 없음","status":"confirmed"},
+            {"id":"e31","us_date":"2026-11-27","et_time":"13:00 조기종료","kst_date":"2026-11-27","kst_time":"(토) 03:00 조기종료","category":"market","importance":2,"badge":null,"title":"블랙프라이데이 - 주식시장 조기 폐장","note":"채권시장은 미국 14:00 ET 조기 마감","status":"confirmed"}
+        ];
+
+        const PREVIEW = [
+            {"kst_date":"2026-12-04","kst_time":"22:30","category":"econ","title":"11월 고용보고서"},
+            {"kst_date":"2026-12-10","kst_time":"04:00","category":"fed","title":"12월 FOMC 금리 결정 (미국 12/9)"},
+            {"kst_date":"2026-12-10","kst_time":"22:30","category":"econ","title":"11월 CPI"}
+        ];
+
+        // Neutral descriptive takeaways for modals
+        const EVENT_DESCRIPTIONS = {
+            "e01": "미국 제조업 분야의 경기 확장 및 위축 여부를 판단하는 주요 서베이 지표입니다.",
+            "e02": "글로벌 IT 대장주인 애플의 거시 매출 추이 및 AI 관련 주요 플랫폼 실적을 확인하는 기업 일정입니다.",
+            "e03": "미국 중간선거일로 의회 주도권 변화 가능성을 관망하는 날이며 정규 증시는 정상 작동합니다.",
+            "e04": "미국 노동 시장 내 민간 구인 수요 흐름과 노동 수급 균형을 측정하는 지표입니다.",
+            "e05": "주요 AI 반도체 및 데이터센터 관련 서버 제조 기업들의 분기 실적 발표입니다.",
+            "e06": "미 재무부의 차입 계획 및 국채 발행 규모를 공개하여 시장 금리에 영향을 주는 일정입니다.",
+            "e07": "미국 경제의 70% 이상을 차지하는 서비스업 섹터의 실물 경기 상태를 점검하는 지표입니다.",
+            "e08": "모바일 스마트폰 AP 시장 및 반도체 IP 아키텍처 로열티 수요 현황을 점검하는 실적 발표입니다.",
+            "e09": "주간 단위 노동 시장의 단기 냉각 여부 및 실직자 추이를 추적하는 지표입니다.",
+            "e10": "연준 통화정책의 핵심축인 고용시장 상태와 임금 상승률을 종합적으로 보여주는 최우선 지표입니다.",
+            "e11": "소비자들의 경기 체감도 및 향후 인플레이션 기대심리 수준을 측정하는 예비 서베이 지표입니다.",
+            "e12": "소비자 물가 상승폭을 측정하여 연준의 금리 정책 결정에 직접적인 영향을 주는 핵심 물가지표입니다.",
+            "e13": "AI 클라우드 인프라 제공업체의 수주 동향 및 실적을 확인하는 컨퍼런스 콜 일정입니다.",
+            "e14": "미국 재향군인의 날로 뉴욕 주식시장은 정상 개장하며 국채 및 채권 시장은 휴장합니다.",
+            "e15": "주간 단위의 신규 실업 청구 추이를 통해 단기 고용 시장 동향을 점검하는 지표입니다.",
+            "e16": "글로벌 네트워크 장비 및 반도체 공정 장비 대장주들의 실적과 기업 설비투자 동향입니다.",
+            "e17": "생산자 단에서의 도매 물가 흐름을 파악하여 향후 소비자 물가 전이를 가늠하는 지표입니다.",
+            "e18": "미국 실물 경제의 버팀목인 가계 소비 지출 규모를 직접 파악할 수 있는 지표입니다.",
+            "e19": "광공업 및 제조업 생산 설비 가동 상태를 파악하는 산업 경기 지표입니다.",
+            "e20": "AI 반도체 수요 및 글로벌 기술주 전반의 투심을 결정짓는 최고 중요 기업 실적 발표입니다.",
+            "e21": "직전 FOMC 회의에서 논의된 위원들의 금리 정책 시각과 세부 의사결정 과정을 확인하는 보고서입니다.",
+            "e22": "글로벌 기업 사이버 보안 지출 및 IT 인프라 투자의 지속성을 파악할 수 있는 실적 발표입니다.",
+            "e23": "주간 실업수당 청구 건수를 확인하여 노동 시장 수급을 모니터링하는 지표입니다.",
+            "e24": "미국 주식 및 지수 옵션 계약 만기일로 파생상품 관련 변동성 요인이 존재하는 날입니다.",
+            "e25": "AI 서버 출하량 및 기업용 PC 수요 교체 주기를 파악할 수 있는 추정 실적 발표입니다.",
+            "e26": "연준이 통화정책 수립 시 가장 선호하여 추적하는 개인소비지출 기반 물가지표입니다.",
+            "e27": "미국 3분기 실질 경제성장률의 수정 집계치로 경기 체력을 다각도로 검증하는 지표입니다.",
+            "e28": "추수감사절 휴일로 인해 하루 당겨져 수요일에 발표되는 주간 고용 동향 지표입니다.",
+            "e29": "미국 12개 연방준비은행 지역의 현장 경제 활동 평가를 담은 연준 종합 보고서입니다.",
+            "e30": "미국 추수감사절(Thanksgiving Day) 명절로 인해 뉴욕증시 정규장이 전면 휴장합니다.",
+            "e31": "블랙프라이데이로 인해 주식시장은 미국 현지 13시(KST 익일 03:00)에 조기 폐장합니다."
+        };
+
+        // 5-Week Desktop Grid Definition (Nov 2026: Mon-Fri)
+        const CALENDAR_WEEKS = [
+            [ { date: '2026-11-02', day: 2 }, { date: '2026-11-03', day: 3 }, { date: '2026-11-04', day: 4 }, { date: '2026-11-05', day: 5 }, { date: '2026-11-06', day: 6 } ],
+            [ { date: '2026-11-09', day: 9 }, { date: '2026-11-10', day: 10 }, { date: '2026-11-11', day: 11 }, { date: '2026-11-12', day: 12 }, { date: '2026-11-13', day: 13 } ],
+            [ { date: '2026-11-16', day: 16 }, { date: '2026-11-17', day: 17 }, { date: '2026-11-18', day: 18 }, { date: '2026-11-19', day: 19 }, { date: '2026-11-20', day: 20 } ],
+            [ { date: '2026-11-23', day: 23 }, { date: '2026-11-24', day: 24 }, { date: '2026-11-25', day: 25 }, { date: '2026-11-26', day: 26 }, { date: '2026-11-27', day: 27 } ],
+            [ { date: '2026-11-30', day: 30 }, null ] // null represents the merged 4-cell block
+        ];
+
+        let currentFilter = 'all';
+        let lastActiveElement = null;
+
+        // Obtain KST Date string (YYYY-MM-DD)
+        function getKSTTodayString() {
+            try {
+                const now = new Date();
+                const kstDate = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+                const y = kstDate.getFullYear();
+                const m = String(kstDate.getMonth() + 1).padStart(2, '0');
+                const d = String(kstDate.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            } catch (e) {
+                return "2026-11-19"; // fallback
+            }
+        }
+
+        // Category Styles & Labels
+        function getCategoryMeta(cat) {
+            switch(cat) {
+                case 'econ':
+                    return {
+                        bg: 'bg-sky-950/70 border-sky-800/60 text-sky-200 hover:border-sky-400',
+                        badgeBg: 'bg-sky-500/20 text-sky-300 border-sky-500/30',
+                        label: '지표',
+                        icon: '📊',
+                        modalBg: 'bg-sky-500 text-slate-950'
+                    };
+                case 'tech':
+                    return {
+                        bg: 'bg-emerald-950/70 border-emerald-800/60 text-emerald-200 hover:border-emerald-400',
+                        badgeBg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+                        label: 'IT 실적',
+                        icon: '💻',
+                        modalBg: 'bg-emerald-500 text-slate-950'
+                    };
+                case 'fed':
+                    return {
+                        bg: 'bg-violet-950/70 border-violet-800/60 text-violet-200 hover:border-violet-400',
+                        badgeBg: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+                        label: '연준',
+                        icon: '🏛️',
+                        modalBg: 'bg-violet-500 text-white'
+                    };
+                case 'market':
+                default:
+                    return {
+                        bg: 'bg-slate-900/90 border-slate-700/70 text-slate-300 hover:border-slate-400',
+                        badgeBg: 'bg-slate-700/50 text-slate-300 border-slate-600/40',
+                        label: '시장',
+                        icon: '🔔',
+                        modalBg: 'bg-slate-500 text-white'
+                    };
+            }
+        }
+
+        // Filter Logic
+        function passesFilter(evtCategory) {
+            if (currentFilter === 'all') return true;
+            if (currentFilter === 'econ') return evtCategory === 'econ';
+            if (currentFilter === 'tech') return evtCategory === 'tech';
+            if (currentFilter === 'fed_market') return evtCategory === 'fed' || evtCategory === 'market';
+            return true;
+        }
+
+        function setFilter(filterType) {
+            currentFilter = filterType;
+            
+            // Update UI filter buttons state
+            const buttons = ['all', 'econ', 'tech', 'fed_market'];
+            buttons.forEach(b => {
+                const btnEl = document.getElementById(`filter-btn-${b}`);
+                if (!btnEl) return;
+                const active = b === filterType;
+                btnEl.setAttribute('aria-pressed', active ? 'true' : 'false');
+                if (active) {
+                    btnEl.className = "filter-btn px-3 py-2 rounded-lg bg-slate-100 text-slate-950 border border-white font-bold transition focus:outline-none focus:ring-2 focus:ring-slate-400 whitespace-nowrap min-h-[44px] md:min-h-[36px]";
+                } else {
+                    let colorClass = "text-slate-300";
+                    if (b === 'econ') colorClass = "text-sky-400";
+                    if (b === 'tech') colorClass = "text-emerald-400";
+                    if (b === 'fed_market') colorClass = "text-violet-300";
+                    btnEl.className = `filter-btn px-3 py-2 rounded-lg bg-slate-900 ${colorClass} border border-slate-800 hover:bg-slate-800 transition flex items-center gap-1.5 whitespace-nowrap min-h-[44px] md:min-h-[36px]`;
+                }
+            });
+
+            renderViews();
+        }
+
+        // Render Cards (Both Desktop & Mobile)
+        function renderViews() {
+            const todayStr = getKSTTodayString();
+            
+            // 1. Render Desktop Grid
+            const desktopGrid = document.getElementById('desktop-grid');
+            desktopGrid.innerHTML = '';
+
+            CALENDAR_WEEKS.forEach((week) => {
+                week.forEach((cell) => {
+                    if (cell === null) {
+                        // Merged 4-cell block in last row
+                        const mergedDiv = document.createElement('div');
+                        mergedDiv.className = "col-span-4 p-3.5 bg-slate-950 border-t border-slate-800 flex flex-col justify-between space-y-3 text-xs";
+                        
+                        mergedDiv.innerHTML = `
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <!-- Legend Box -->
+                                <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+                                    <div class="font-bold text-slate-200 mb-2 text-xs flex items-center gap-1">
+                                        <span>📌</span> 범례 (Category Legend)
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-1.5 text-[11px]">
+                                        <div class="flex items-center gap-1.5 text-sky-300">
+                                            <span class="w-2 h-2 rounded-full bg-sky-400"></span> 📊 지표 (경제)
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-emerald-300">
+                                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 💻 IT 실적발표
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-violet-300">
+                                            <span class="w-2 h-2 rounded-full bg-violet-400"></span> 🏛️ 연준 (FOMC)
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-slate-300">
+                                            <span class="w-2 h-2 rounded-full bg-slate-400"></span> 🔔 시장 (휴장일)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dec Preview Box -->
+                                <div class="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+                                    <div class="font-bold text-amber-300 mb-1 text-xs flex items-center gap-1">
+                                        <span>🔮</span> 2026년 12월 주요 일정 PREVIEW
+                                    </div>
+                                    <ul class="space-y-1 text-[11px] text-slate-300 font-num">
+                                        ${PREVIEW.map(p => `
+                                            <li class="flex items-center justify-between">
+                                                <span class="truncate">${p.title}</span>
+                                                <span class="text-slate-400 text-[10px] ml-2 whitespace-nowrap">${p.kst_date.slice(5)} ${p.kst_time}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Footer note in merged box -->
+                            <div class="pt-2 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-1">
+                                <div>데이터 기준일: <strong class="text-slate-400 font-num">2026-11-19</strong></div>
+                                <div class="text-center sm:text-right">본 캘린더는 참고용 정보이며 투자 권유가 아닙니다.</div>
+                            </div>
+                        `;
+                        desktopGrid.appendChild(mergedDiv);
+                        return;
+                    }
+
+                    const isToday = cell.date === todayStr;
+                    const isPast = cell.date < todayStr;
+                    const cellDiv = document.createElement('div');
+                    
+                    cellDiv.className = `min-h-[145px] p-2 flex flex-col border-r border-b border-slate-800/70 transition ${
+                        isToday ? 'bg-slate-900 ring-2 ring-amber-400/80 ring-inset z-10' : 'bg-slate-950/40 hover:bg-slate-900/50'
+                    }`;
+
+                    // Day Number Header
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = "flex items-center justify-between mb-1.5 pb-1 border-b border-slate-800/40";
+                    dayHeader.innerHTML = `
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-num text-sm font-extrabold ${isToday ? 'text-amber-400' : 'text-slate-200'}">
+                                11/${String(cell.day).padStart(2, '0')}
+                            </span>
+                            ${isToday ? '<span class="text-[9px] font-bold px-1 bg-amber-400 text-slate-950 rounded">오늘</span>' : ''}
+                        </div>
+                    `;
+                    cellDiv.appendChild(dayHeader);
+
+                    // Filter Events for this KST Date
+                    const dayEvts = EVENTS
+                        .filter(e => e.kst_date === cell.date && passesFilter(e.category))
+                        .sort((a, b) => a.kst_time.localeCompare(b.kst_time));
+
+                    const evtsContainer = document.createElement('div');
+                    evtsContainer.className = "space-y-1.5 flex-grow overflow-y-auto max-h-[160px]";
+
+                    dayEvts.forEach(evt => {
+                        const card = createDesktopCardHTML(evt, isPast);
+                        evtsContainer.appendChild(card);
+                    });
+
+                    cellDiv.appendChild(evtsContainer);
+                    desktopGrid.appendChild(cellDiv);
+                });
+            });
+
+            // 2. Render Mobile List View
+            const mobileList = document.getElementById('mobile-list');
+            mobileList.innerHTML = '';
+
+            const activeEvents = EVENTS.filter(e => passesFilter(e.category));
+            document.getElementById('mobile-event-count').innerText = activeEvents.length;
+
+            if (activeEvents.length === 0) {
+                mobileList.innerHTML = `
+                    <div class="text-center py-12 text-slate-500 text-xs bg-slate-900/40 rounded-xl border border-slate-800">
+                        해당 카테고리의 이벤트가 없습니다.
+                    </div>
+                `;
+                return;
+            }
+
+            // Group active events by KST Date
+            const groupedByDate = {};
+            activeEvents.forEach(evt => {
+                if (!groupedByDate[evt.kst_date]) groupedByDate[evt.kst_date] = [];
+                groupedByDate[evt.kst_date].push(evt);
+            });
+
+            const sortedDates = Object.keys(groupedByDate).sort();
+
+            sortedDates.forEach(dateStr => {
+                const isToday = dateStr === todayStr;
+                const isPast = dateStr < todayStr;
+                const evts = groupedByDate[dateStr].sort((a, b) => a.kst_time.localeCompare(b.kst_time));
+                
+                const dateGroupDiv = document.createElement('div');
+                dateGroupDiv.className = `bg-slate-900 border rounded-xl overflow-hidden shadow-lg ${
+                    isToday ? 'border-amber-400/80 ring-1 ring-amber-400' : 'border-slate-800'
+                }`;
+
+                const groupHeader = document.createElement('div');
+                groupHeader.className = "bg-slate-950 px-3.5 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs";
+                
+                const dayNum = dateStr.slice(8);
+                groupHeader.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="font-num font-extrabold text-sm ${isToday ? 'text-amber-400' : 'text-slate-100'}">
+                            2026년 11월 ${dayNum}일 (KST)
+                        </span>
+                        ${isToday ? '<span class="text-[10px] font-bold px-1.5 py-0.5 bg-amber-400 text-slate-950 rounded">TODAY</span>' : ''}
+                    </div>
+                    <span class="text-slate-500 text-[11px] font-num">${evts.length}개 일정</span>
+                `;
+                dateGroupDiv.appendChild(groupHeader);
+
+                const cardListDiv = document.createElement('div');
+                cardListDiv.className = "p-2 space-y-2";
+
+                evts.forEach(evt => {
+                    const card = createMobileCardHTML(evt, isPast);
+                    cardListDiv.appendChild(card);
+                });
+
+                dateGroupDiv.appendChild(cardListDiv);
+                mobileList.appendChild(dateGroupDiv);
+            });
+        }
+
+        // Create Desktop Card Element
+        function createDesktopCardHTML(evt, isPast) {
+            const meta = getCategoryMeta(evt.category);
+            const card = document.createElement('div');
+            
+            card.tabIndex = 0;
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `${evt.title}, 한국시간 ${evt.kst_time}`);
+            
+            card.className = `card-item p-1.5 rounded-lg border transition text-[10px] sm:text-[11px] leading-tight cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-300 ${meta.bg} ${isPast ? 'opacity-50' : 'opacity-100'}`;
+            
+            // Status Tag
+            let statusTag = '';
+            if (evt.status === 'tentative') {
+                statusTag = '<span class="text-[9px] text-amber-300 font-medium ml-1">(미확정)</span>';
+            } else if (evt.status === 'scheduled') {
+                statusTag = '<span class="text-[9px] text-slate-400 font-medium ml-1">(예정)</span>';
+            }
+
+            // High impact stars summary
+            const stars = '★'.repeat(evt.importance);
+
+            card.innerHTML = `
+                ${evt.badge ? `<div class="mb-1"><span class="px-1.5 py-0.5 text-[9px] font-bold bg-white text-slate-950 rounded shadow-sm">${evt.badge}</span></div>` : ''}
+                <div class="flex items-start justify-between gap-1 mb-1">
+                    <span class="font-bold text-slate-100 line-clamp-2">${meta.icon} ${evt.title}</span>
+                </div>
+                <div class="flex items-center justify-between text-[9px] opacity-80 pt-1 border-t border-slate-700/40 font-num">
+                    <span class="truncate">미국 ${evt.et_time} → KST ${evt.kst_time}</span>
+                    <span class="text-amber-400 font-bold ml-1">${stars}</span>
+                </div>
+                ${statusTag ? `<div class="text-[8px] text-right mt-0.5">${statusTag}</div>` : ''}
+            `;
+
+            card.onclick = (e) => openModal(evt, e.currentTarget);
+            card.onkeydown = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(evt, e.currentTarget);
+                }
+            };
+
+            return card;
+        }
+
+        // Create Mobile Card Element (Min Touch Target 44px)
+        function createMobileCardHTML(evt, isPast) {
+            const meta = getCategoryMeta(evt.category);
+            const card = document.createElement('div');
+            
+            card.tabIndex = 0;
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `${evt.title}, KST ${evt.kst_time}`);
+            
+            card.className = `card-item p-3 rounded-xl border transition text-xs cursor-pointer min-h-[52px] flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-slate-300 ${meta.bg} ${isPast ? 'opacity-50' : 'opacity-100'}`;
+
+            let statusText = '';
+            if (evt.status === 'tentative') statusText = ' · 예정(미확정)';
+            if (evt.status === 'scheduled') statusText = ' · 예정';
+
+            card.innerHTML = `
+                <div class="flex items-start justify-between gap-2 mb-1.5">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${meta.badgeBg}">
+                            ${meta.icon} ${meta.label}
+                        </span>
+                        ${evt.badge ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white text-slate-950">${evt.badge}</span>` : ''}
+                        <span class="text-[11px] font-bold text-slate-100">${evt.title}</span>
+                    </div>
+                    <span class="text-amber-400 font-num text-[11px] font-bold whitespace-nowrap">★${evt.importance}</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-slate-300 font-num pt-1 border-t border-slate-700/50">
+                    <span>미국 ${evt.et_time} → KST ${evt.kst_time}</span>
+                    <span class="text-slate-400 text-[10px]">${statusText}</span>
+                </div>
+            `;
+
+            card.onclick = (e) => openModal(evt, e.currentTarget);
+            card.onkeydown = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openModal(evt, e.currentTarget);
+                }
+            };
+
+            return card;
+        }
+
+        // Accessible Modal Controls
+        function openModal(evt, triggerEl) {
+            lastActiveElement = triggerEl || document.activeElement;
+            const modal = document.getElementById('event-modal');
+            const meta = getCategoryMeta(evt.category);
+
+            // Set Title & Badges
+            document.getElementById('modal-title').innerText = evt.title;
+            
+            const catBadge = document.getElementById('modal-badge-category');
+            catBadge.innerText = `${meta.icon} ${meta.label}`;
+            catBadge.className = `px-2.5 py-0.5 rounded text-xs font-bold ${meta.modalBg}`;
+
+            // Status
+            const statusEl = document.getElementById('modal-status');
+            if (evt.status === 'confirmed') statusEl.innerText = '상태: 공식 확정';
+            else if (evt.status === 'scheduled') statusEl.innerText = '상태: 예정';
+            else statusEl.innerText = '상태: 추정 (미확정)';
+
+            // Timings
+            document.getElementById('modal-us-time').innerText = `미국 현지 ${evt.us_date} ${evt.et_time} ET`;
+            document.getElementById('modal-kst-time').innerText = `한국시간 ${evt.kst_date} ${evt.kst_time} KST`;
+
+            // Note
+            const noteContainer = document.getElementById('modal-note-container');
+            if (evt.note) {
+                document.getElementById('modal-note-text').innerText = evt.note;
+                noteContainer.classList.remove('hidden');
+            } else {
+                noteContainer.classList.add('hidden');
+            }
+
+            // Neutral takeaway description
+            const descText = EVENT_DESCRIPTIONS[evt.id] || "해당 일정의 주요 경과 및 관련 발표 수치를 확인하는 경제·기업 이벤트입니다.";
+            document.getElementById('modal-desc').innerText = descText;
+
+            // Stars
+            document.getElementById('modal-impact-stars').innerText = '★'.repeat(evt.importance) + '☆'.repeat(5 - evt.importance) + ` (${evt.importance}/5)`;
+
+            // Display & Focus Management
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            const closeBtn = document.getElementById('modal-close-btn');
+            closeBtn.focus();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('event-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+
+            if (lastActiveElement) {
+                lastActiveElement.focus();
+            }
+        }
+
+        // Keyboard Accessibility (ESC key & Focus Trap)
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('event-modal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+                
+                // Focus trap inside modal
+                if (e.key === 'Tab') {
+                    const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    const firstFocusable = focusables[0];
+                    const lastFocusable = focusables[focusables.length - 1];
+
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusable) {
+                            lastFocusable.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusable) {
+                            firstFocusable.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            }
+        });
+
+        // Close on background click
+        document.getElementById('event-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initial Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            renderViews();
+        });
+    </script>
+</body>
+</html>
