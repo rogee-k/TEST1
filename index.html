@@ -102,15 +102,27 @@
                 <!-- Title & Subtitle -->
                 <div>
                     <div class="flex items-center gap-2 mb-1">
-                        <span class="px-2 py-0.5 text-[11px] font-bold font-num bg-slate-800 text-slate-300 border border-slate-700 rounded">
-                            2026.11
-                        </span>
+                        <!-- 월 이동 네비게이션 컨트롤 -->
+                        <div class="flex items-center bg-slate-950 border border-slate-700 rounded-lg p-0.5 no-print">
+                            <button onclick="changeMonth(-1)" aria-label="이전달 이동" class="px-2 py-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition text-xs font-bold">
+                                ◀
+                            </button>
+                            <span id="current-month-display" class="px-2 py-0.5 text-[11px] font-bold font-num bg-slate-800 text-amber-400 rounded">
+                                2026.11
+                            </span>
+                            <button onclick="changeMonth(1)" aria-label="다음달 이동" class="px-2 py-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition text-xs font-bold">
+                                ▶
+                            </button>
+                            <button onclick="resetToToday()" aria-label="오늘로 이동" class="ml-1 px-2 py-0.5 text-[11px] font-bold bg-amber-400/20 text-amber-300 hover:bg-amber-400/30 border border-amber-400/40 rounded transition">
+                                오늘
+                            </button>
+                        </div>
                         <span class="px-2 py-0.5 text-[11px] font-semibold bg-blue-950/80 text-blue-300 border border-blue-800/50 rounded">
                             미국 EST 적용 (KST = ET + 14시간)
                         </span>
                     </div>
                     <h1 class="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
-                        <span>🇺🇸 2026년 11월 미국 증시 & 주요 IT 실적발표 캘린더</span>
+                        <span>🇺🇸 <span id="calendar-title-date">2026년 11월</span> 미국 증시 & 주요 IT 실적발표 캘린더</span>
                     </h1>
                     <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
                         모든 시각은 한국시간(KST) 기준 · 토·일 제외 주 5일 배치
@@ -169,7 +181,7 @@
         <!-- MOBILE AGENDA LIST VIEW (768px 미만) -->
         <div class="block md:hidden mobile-list-container space-y-3">
             <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 text-xs text-slate-400 flex items-center justify-between">
-                <span>📱 2026년 11월 KST 주요 일정 목록</span>
+                <span>📱 <span id="mobile-month-display">2026년 11월</span> KST 주요 일정 목록</span>
                 <span class="font-num text-slate-300">총 <strong id="mobile-event-count" class="text-white">0</strong>건</span>
             </div>
             <div id="mobile-list" class="space-y-3">
@@ -296,7 +308,24 @@
             {"id":"e28","us_date":"2026-11-25","et_time":"08:30","kst_date":"2026-11-25","kst_time":"22:30","category":"econ","importance":2,"badge":null,"title":"주간 신규 실업수당 청구 (휴일로 수요일 발표)","status":"scheduled"},
             {"id":"e29","us_date":"2026-11-25","et_time":"14:00","kst_date":"2026-11-26","kst_time":"04:00","category":"fed","importance":3,"badge":null,"title":"연준 베이지북","status":"scheduled"},
             {"id":"e30","us_date":"2026-11-26","et_time":"종일","kst_date":"2026-11-26","kst_time":"23:30 휴장","category":"market","importance":3,"badge":null,"title":"추수감사절 - 뉴욕증시 휴장","note":"KST 11/26 23:30 ~ 11/27 06:00 정규장 없음","status":"confirmed"},
-            {"id":"e31","us_date":"2026-11-27","et_time":"13:00 조기종료","kst_date":"2026-11-27","kst_time":"(토) 03:00 조기종료","category":"market","importance":2,"badge":null,"title":"블랙프라이데이 - 주식시장 조기 폐장","note":"채권시장은 미국 14:00 ET 조기 마감","status":"confirmed"}
+            {"id":"e31","us_date":"2026-11-27","et_time":"13:00 조기종료","kst_date":"2026-11-27","kst_time":"(토) 03:00 조기종료","category":"market","importance":2,"badge":null,"title":"블랙프라이데이 - 주식시장 조기 폐장","note":"채권시장은 미국 14:00 ET 조기 마감","status":"confirmed"},
+
+            // 2026년 12월 데이터 (DECEMBER 2026 EVENTS)
+            {"id":"e1201","us_date":"2026-12-01","et_time":"10:00","kst_date":"2026-12-02","kst_time":"00:00","category":"econ","importance":3,"badge":null,"title":"ISM 제조업 PMI (11월)","status":"scheduled"},
+            {"id":"e1202","us_date":"2026-12-02","et_time":"10:00","kst_date":"2026-12-03","kst_time":"00:00","category":"econ","importance":3,"badge":null,"title":"JOLTS 구인건수 (10월)","status":"scheduled"},
+            {"id":"e1203","us_date":"2026-12-02","et_time":"장마감 후","kst_date":"2026-12-03","kst_time":"06:00","category":"tech","importance":3,"badge":null,"title":"Salesforce 3분기 실적발표","status":"scheduled"},
+            {"id":"e1204","us_date":"2026-12-03","et_time":"10:00","kst_date":"2026-12-04","kst_time":"00:00","category":"econ","importance":3,"badge":null,"title":"ISM 서비스업 PMI (11월)","status":"scheduled"},
+            {"id":"e1205","us_date":"2026-12-04","et_time":"08:30","kst_date":"2026-12-04","kst_time":"22:30","category":"econ","importance":5,"badge":"고용","title":"11월 고용보고서 (비농업 고용·실업률)","status":"confirmed"},
+            {"id":"e1206","us_date":"2026-12-09","et_time":"장마감 후","kst_date":"2026-12-10","kst_time":"06:00","category":"tech","importance":4,"badge":null,"title":"Oracle·Broadcom 실적발표","status":"scheduled"},
+            {"id":"e1207","us_date":"2026-12-09","et_time":"14:00","kst_date":"2026-12-10","kst_time":"04:00","category":"fed","importance":5,"badge":"FOMC","title":"12월 FOMC 금리 결정 & 경제전망(SEP)","note":"파월 연준의장 기자회견 KST 04:30","status":"confirmed"},
+            {"id":"e1208","us_date":"2026-12-10","et_time":"08:30","kst_date":"2026-12-10","kst_time":"22:30","category":"econ","importance":5,"badge":"CPI","title":"11월 CPI (소비자물가)","status":"confirmed"},
+            {"id":"e1209","us_date":"2026-12-11","et_time":"08:30","kst_date":"2026-12-11","kst_time":"22:30","category":"econ","importance":3,"badge":null,"title":"11월 PPI (생산자물가)","status":"scheduled"},
+            {"id":"e1210","us_date":"2026-12-15","et_time":"08:30","kst_date":"2026-12-15","kst_time":"22:30","category":"econ","importance":4,"badge":null,"title":"11월 소매판매","status":"scheduled"},
+            {"id":"e1211","us_date":"2026-12-17","et_time":"장마감 후","kst_date":"2026-12-18","kst_time":"06:00","category":"tech","importance":4,"badge":null,"title":"Micron Technology 실적발표","note":"메모리 반도체 업황 풍향계","status":"scheduled"},
+            {"id":"e1212","us_date":"2026-12-18","et_time":"09:30","kst_date":"2026-12-18","kst_time":"23:30","category":"market","importance":3,"badge":null,"title":"12월 동시 선물·옵션 만기일 (Triple Witching)","status":"scheduled"},
+            {"id":"e1213","us_date":"2026-12-23","et_time":"08:30","kst_date":"2026-12-23","kst_time":"22:30","category":"econ","importance":5,"badge":"PCE","title":"11월 PCE·개인소비지출","status":"scheduled"},
+            {"id":"e1214","us_date":"2026-12-24","et_time":"13:00 조기종료","kst_date":"2026-12-24","kst_time":"(토) 03:00 조기종료","category":"market","importance":2,"badge":null,"title":"크리스마스 이브 - 주식시장 조기 폐장","status":"confirmed"},
+            {"id":"e1215","us_date":"2026-12-25","et_time":"종일","kst_date":"2026-12-25","kst_time":"23:30 휴장","category":"market","importance":3,"badge":null,"title":"크리스마스 - 뉴욕증시 휴장","note":"KST 12/25 23:30 ~ 12/26 06:00 휴장","status":"confirmed"}
         ];
 
         const PREVIEW = [
@@ -304,6 +333,81 @@
             {"kst_date":"2026-12-10","kst_time":"04:00","category":"fed","title":"12월 FOMC 금리 결정 (미국 12/9)"},
             {"kst_date":"2026-12-10","kst_time":"22:30","category":"econ","title":"11월 CPI"}
         ];
+
+        // Currently active year and month state
+        let currentYear = 2026;
+        let currentMonth = 11; // 1-indexed (11 = Nov)
+
+        // Generate dynamic calendar weeks grid for any Year/Month (Mon-Fri)
+        function generateMonthWeeks(year, month) {
+            const weeks = [];
+            const daysInMonth = new Date(year, month, 0).getDate();
+            let currentWeek = [];
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateObj = new Date(year, month - 1, day);
+                const dayOfWeek = dateObj.getDay(); // 0:Sun, 1:Mon ... 6:Sat
+
+                // Skip Saturday (6) and Sunday (0)
+                if (dayOfWeek === 0 || dayOfWeek === 6) continue;
+
+                const mStr = String(month).padStart(2, '0');
+                const dStr = String(day).padStart(2, '0');
+                const dateStr = `${year}-${mStr}-${dStr}`;
+
+                currentWeek.push({ date: dateStr, day: day });
+
+                if (currentWeek.length === 5) {
+                    weeks.push(currentWeek);
+                    currentWeek = [];
+                }
+            }
+
+            // Fill remaining slot in the last week with null (merged summary block)
+            if (currentWeek.length > 0) {
+                while (currentWeek.length < 4) {
+                    currentWeek.push({ date: null, day: null, empty: true });
+                }
+                currentWeek.push(null); // Merged summary block indicator
+                weeks.push(currentWeek);
+            } else if (weeks.length > 0) {
+                // If last week hit exactly 5 days, append a row with merged block
+                weeks.push([ { empty: true }, { empty: true }, { empty: true }, { empty: true }, null ]);
+            }
+
+            return weeks;
+        }
+
+        // Handle Month Shift (-1 or +1)
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear += 1;
+            } else if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear -= 1;
+            }
+            updateMonthHeaderUI();
+            renderViews();
+        }
+
+        // Reset view back to Current Date / Default 2026.11
+        function resetToToday() {
+            currentYear = 2026;
+            currentMonth = 11;
+            updateMonthHeaderUI();
+            renderViews();
+        }
+
+        function updateMonthHeaderUI() {
+            const ymStr = `${currentYear}.${String(currentMonth).padStart(2, '0')}`;
+            const titleStr = `${currentYear}년 ${currentMonth}월`;
+            
+            document.getElementById('current-month-display').innerText = ymStr;
+            document.getElementById('calendar-title-date').innerText = titleStr;
+            document.getElementById('mobile-month-display').innerText = titleStr;
+        }
 
         // Neutral descriptive takeaways for modals
         const EVENT_DESCRIPTIONS = {
@@ -337,17 +441,25 @@
             "e28": "추수감사절 휴일로 인해 하루 당겨져 수요일에 발표되는 주간 고용 동향 지표입니다.",
             "e29": "미국 12개 연방준비은행 지역의 현장 경제 활동 평가를 담은 연준 종합 보고서입니다.",
             "e30": "미국 추수감사절(Thanksgiving Day) 명절로 인해 뉴욕증시 정규장이 전면 휴장합니다.",
-            "e31": "블랙프라이데이로 인해 주식시장은 미국 현지 13시(KST 익일 03:00)에 조기 폐장합니다."
+            "e31": "블랙프라이데이로 인해 주식시장은 미국 현지 13시(KST 익일 03:00)에 조기 폐장합니다.",
+            
+            // 12월 관전 포인트
+            "e1201": "11월 미국 제조업 분야의 경기 침체 탈출 여부를 가늠하는 지표입니다.",
+            "e1202": "연준 금리 결정을 일주일 앞두고 노동 수요의 냉각세를 확인하는 지표입니다.",
+            "e1203": "기업용 소프트웨어(SaaS) 및 엔터프라이즈 IT 지출 동향을 확인하는 실적 발표입니다.",
+            "e1204": "미국 서비스업 분야의 확장세 지속 여부를 확인하는 주요 서베이 지표입니다.",
+            "e1205": "12월 FOMC 회의 직전에 발표되는 올해 마지막 고용 보고서로 최우선 관전 지표입니다.",
+            "e1206": "AI 네트워크 반도체(브로드컴) 및 기업용 데이터센터 DB(오라클)의 핵심 실적 발표입니다.",
+            "e1207": "2026년 기준금리 최종 결정 및 2027년 점도표(SEP)가 공개되는 올 한 해 최고 중요 연준 이벤트입니다.",
+            "e1208": "12월 금리 결정 직후 발표되는 11월 소비자물가지수로 인플레이션 둔화세를 재검증합니다.",
+            "e1209": "도매 도급 물가 추이를 파악하여 향후 물가 전이 압력을 가늠하는 생산자물가지수입니다.",
+            "e1210": "연말 쇼핑 시즌(블랙프라이데이/사이버먼데이)의 가계 실질 소비 파급력을 가늠하는 소비 지표입니다.",
+            "e1211": "메모리 반도체(DRAM/NAND) 가격 및 AI HBM 메모리 수급 전망을 점검하는 업황 풍향계 실적입니다.",
+            "e1212": "주식 선물·옵션 동시 만기로 파생상품 관련 연말 변동성에 유의해야 하는 날입니다.",
+            "e1213": "연준이 가장 신뢰하는 물가지표인 11월 PCE 발표로 연말 인플레 방향성을 확정 짓는 지표입니다.",
+            "e1214": "성탄절 전일로 뉴욕 정규 주식시장이 미국 현지 13:00(KST 익일 03:00)에 조기 종료합니다.",
+            "e1215": "크리스마스 명절로 뉴욕증시 정규장이 전면 휴장합니다."
         };
-
-        // 5-Week Desktop Grid Definition (Nov 2026: Mon-Fri)
-        const CALENDAR_WEEKS = [
-            [ { date: '2026-11-02', day: 2 }, { date: '2026-11-03', day: 3 }, { date: '2026-11-04', day: 4 }, { date: '2026-11-05', day: 5 }, { date: '2026-11-06', day: 6 } ],
-            [ { date: '2026-11-09', day: 9 }, { date: '2026-11-10', day: 10 }, { date: '2026-11-11', day: 11 }, { date: '2026-11-12', day: 12 }, { date: '2026-11-13', day: 13 } ],
-            [ { date: '2026-11-16', day: 16 }, { date: '2026-11-17', day: 17 }, { date: '2026-11-18', day: 18 }, { date: '2026-11-19', day: 19 }, { date: '2026-11-20', day: 20 } ],
-            [ { date: '2026-11-23', day: 23 }, { date: '2026-11-24', day: 24 }, { date: '2026-11-25', day: 25 }, { date: '2026-11-26', day: 26 }, { date: '2026-11-27', day: 27 } ],
-            [ { date: '2026-11-30', day: 30 }, null ] // null represents the merged 4-cell block
-        ];
 
         let currentFilter = 'all';
         let lastActiveElement = null;
@@ -441,12 +553,13 @@
         // Render Cards (Both Desktop & Mobile)
         function renderViews() {
             const todayStr = getKSTTodayString();
+            const calendarWeeks = generateMonthWeeks(currentYear, currentMonth);
             
             // 1. Render Desktop Grid
             const desktopGrid = document.getElementById('desktop-grid');
             desktopGrid.innerHTML = '';
 
-            CALENDAR_WEEKS.forEach((week) => {
+            calendarWeeks.forEach((week) => {
                 week.forEach((cell) => {
                     if (cell === null) {
                         // Merged 4-cell block in last row
@@ -502,6 +615,13 @@
                         return;
                     }
 
+                    if (cell.empty) {
+                        const emptyCell = document.createElement('div');
+                        emptyCell.className = "min-h-[145px] p-2 bg-slate-950/20 border-r border-b border-slate-800/40 opacity-30";
+                        desktopGrid.appendChild(emptyCell);
+                        return;
+                    }
+
                     const isToday = cell.date === todayStr;
                     const isPast = cell.date < todayStr;
                     const cellDiv = document.createElement('div');
@@ -516,7 +636,7 @@
                     dayHeader.innerHTML = `
                         <div class="flex items-center gap-1.5">
                             <span class="font-num text-sm font-extrabold ${isToday ? 'text-amber-400' : 'text-slate-200'}">
-                                11/${String(cell.day).padStart(2, '0')}
+                                ${currentMonth}/${String(cell.day).padStart(2, '0')}
                             </span>
                             ${isToday ? '<span class="text-[9px] font-bold px-1 bg-amber-400 text-slate-950 rounded">오늘</span>' : ''}
                         </div>
@@ -545,13 +665,17 @@
             const mobileList = document.getElementById('mobile-list');
             mobileList.innerHTML = '';
 
-            const activeEvents = EVENTS.filter(e => passesFilter(e.category));
+            const activeEvents = EVENTS.filter(e => {
+                const eYear = parseInt(e.kst_date.slice(0, 4), 10);
+                const eMonth = parseInt(e.kst_date.slice(5, 7), 10);
+                return eYear === currentYear && eMonth === currentMonth && passesFilter(e.category);
+            });
             document.getElementById('mobile-event-count').innerText = activeEvents.length;
 
             if (activeEvents.length === 0) {
                 mobileList.innerHTML = `
                     <div class="text-center py-12 text-slate-500 text-xs bg-slate-900/40 rounded-xl border border-slate-800">
-                        해당 카테고리의 이벤트가 없습니다.
+                        ${currentYear}년 ${currentMonth}월 해당 카테고리의 이벤트가 없습니다.
                     </div>
                 `;
                 return;
@@ -579,11 +703,12 @@
                 const groupHeader = document.createElement('div');
                 groupHeader.className = "bg-slate-950 px-3.5 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs";
                 
+                const monthNum = parseInt(dateStr.slice(5, 7), 10);
                 const dayNum = dateStr.slice(8);
                 groupHeader.innerHTML = `
                     <div class="flex items-center gap-2">
                         <span class="font-num font-extrabold text-sm ${isToday ? 'text-amber-400' : 'text-slate-100'}">
-                            2026년 11월 ${dayNum}일 (KST)
+                            ${dateStr.slice(0, 4)}년 ${monthNum}월 ${dayNum}일 (KST)
                         </span>
                         ${isToday ? '<span class="text-[10px] font-bold px-1.5 py-0.5 bg-amber-400 text-slate-950 rounded">TODAY</span>' : ''}
                     </div>
